@@ -1,0 +1,5 @@
+# Ignore Data and Cache
+data/
+*.pkl
+*.tab
+__pycache__/
