@@ -1,0 +1,23 @@
+name: Sync to Hugging Face Hub
+on:
+  push:
+    branches: [streamlitv2]
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: Push to hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          # REPLACE WITH YOUR DETAILS BELOW
+          HF_USERNAME: shub-230 
+          SPACE_NAME: DeepAffinity-Multimodal
+        run: git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME main
