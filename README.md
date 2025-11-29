@@ -21,7 +21,7 @@ Evaluated on the **BindingDB Cold-Drug Split** (hardest benchmark), where the te
 | **Pearson Correlation** | **0.7982** | Strong linear relationship |
 
 ### Performance Visualization
-![Results](https://github.com/shubhamsahu03/DeepAffinity-Multimodal/blob/main/results/final_results.png)
+![Results](https://github.com/shubhamsahu03/DeepAffinity-Multimodal/blob/streamlitv2/results/final_results.png)
 *(Scatter plot showing predicted vs. actual pKd values on the test set. The tight clustering along the diagonal demonstrates low variance and high precision.)*
 
 ---
