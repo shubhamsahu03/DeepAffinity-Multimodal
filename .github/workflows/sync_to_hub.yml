@@ -20,4 +20,4 @@ jobs:
           # REPLACE WITH YOUR DETAILS BELOW
           HF_USERNAME: shub-230 
           SPACE_NAME: DeepAffinity-Multimodal
-        run: git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME main
+        run: git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME streamlitv2
