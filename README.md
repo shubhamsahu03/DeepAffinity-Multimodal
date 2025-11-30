@@ -1,7 +1,7 @@
 # 🧬 Graph-Attention-DTA: Multimodal Drug Discovery
 
 ![Status](https://img.shields.io/badge/Status-Completed-success)
-![Metric](https://img.shields.io/badge/Spearman-0.711-brightgreen)
+![Metric](https://img.shields.io/badge/Spearman-0.788-brightgreen)
 ![Framework](https://img.shields.io/badge/PyTorch-Geometric-red)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
@@ -16,12 +16,12 @@ Evaluated on the **BindingDB Cold-Drug Split** (hardest benchmark), where the te
 
 | Metric | Score | Industry Context |
 | :--- | :--- | :--- |
-| **Spearman Rank Correlation** | **0.711** | High ranking ability (SOTA tier for Cold Split) |
-| **RMSE** | **0.818** | Precise affinity prediction (< 1 log unit error) |
-| **Pearson Correlation** | **0.72+** | Strong linear relationship |
+| **Spearman Rank Correlation** | **0.788** | High ranking ability (SOTA tier for Cold Split) |
+| **RMSE** | **0.708** | Precise affinity prediction (< 1 log unit error) |
+| **Pearson Correlation** | **0.7982** | Strong linear relationship |
 
 ### Performance Visualization
-![Results](https://github.com/shubhamsahu03/DeepAffinity-Multimodal/blob/main/results/final_results.png)
+![Results](https://github.com/shubhamsahu03/DeepAffinity-Multimodal/blob/streamlitv2/results/final_results.png)
 *(Scatter plot showing predicted vs. actual pKd values on the test set. The tight clustering along the diagonal demonstrates low variance and high precision.)*
 
 ---
@@ -55,7 +55,7 @@ The system uses a **Dual-Stream Encoder** with a Cross-Attention fusion head:
 This project goes beyond standard tutorials by incorporating rigorous engineering practices:
 
 * **Bayesian Optimization:** Used **Optuna** (TPE Sampler) to tune 5 hyperparameters (LR, Dropout, Layers, Hidden Dim, Batch Size).
-    * *Discovery:* Found a high-regularization regime (**Dropout = 0.46**) was critical for generalization.
+    * *Discovery:* Found a high-regularization regime (**Dropout = 0.32**) was critical for generalization.
 * **Parallel Data Pipeline:** Implemented a multi-core `joblib` processor to convert SMILES to Graphs, reducing preprocessing time by 90%.
 * **Robust Evaluation:** Used **Cold-Drug Splitting** instead of random splitting to prevent data leakage and simulate real-world screening scenarios.
 
@@ -90,6 +90,8 @@ python inference.py --drug "CC(=O)OC1=CC=CC=C1C(=O)O" --target "MLP..."
 ```
 ```bash
 📂 Project Structure
+├── app/
+|   ├── app.py
 ├── data/                  # Cached graph datasets and ESM embeddings
 ├── src/
 │   ├── features.py        # Atom/Bond featurization logic
@@ -97,15 +99,14 @@ python inference.py --drug "CC(=O)OC1=CC=CC=C1C(=O)O" --target "MLP..."
 │   ├── processor.py       # Parallel Graph conversion & pKd scaling
 │   ├── dataset.py         # PyTorch Geometric InMemoryDataset
 │   ├── model_attention.py # GIN + ESM + CrossAttention Architecture
+|   ├── uncertainity.py    
+|   ├── run_active_learning.py # Active Learning
 │   └── train.py           # Training loop & Evaluation metrics
-├── final_attention_model.pth  # Trained Model Weights
+├── final_attention_model.pth # Trained Model Weights
+├── Dockerfile  
 └── README.md
 ```
 ## 🔮 3. Future Improvements
 
-
 - **3D Geometric Deep Learning:** Replace the 2D GIN with an E(n)-Equivariant GNN (like EGNN or SchNet) to leverage 3D conformer coordinates, capturing spatial steric clashes.
-- **Deployment Pipeline:** Containerize the inference script using Docker.
-- Build a Streamlit dashboard for biologists to upload CSVs and get affinity rankings.
-- **Active Learning:** Implement an uncertainty estimation head (Monte Carlo Dropout) to identify "uncertain" predictions and request wet-lab validation for those specific compounds.
 - **Structure-Based Protein Encoder:** Utilize AlphaFold generated PDB structures with a GearNet (Geometry Aware GNN) instead of 1D sequences for better binding pocket analysis.
