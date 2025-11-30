@@ -55,7 +55,7 @@ The system uses a **Dual-Stream Encoder** with a Cross-Attention fusion head:
 This project goes beyond standard tutorials by incorporating rigorous engineering practices:
 
 * **Bayesian Optimization:** Used **Optuna** (TPE Sampler) to tune 5 hyperparameters (LR, Dropout, Layers, Hidden Dim, Batch Size).
-    * *Discovery:* Found a high-regularization regime (**Dropout = 0.46**) was critical for generalization.
+    * *Discovery:* Found a high-regularization regime (**Dropout = 0.32**) was critical for generalization.
 * **Parallel Data Pipeline:** Implemented a multi-core `joblib` processor to convert SMILES to Graphs, reducing preprocessing time by 90%.
 * **Robust Evaluation:** Used **Cold-Drug Splitting** instead of random splitting to prevent data leakage and simulate real-world screening scenarios.
 
